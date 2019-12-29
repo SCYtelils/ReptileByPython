@@ -1,16 +1,8 @@
-from urllib.request import *
-from urllib.error import *
+import http.cookiejar,urllib.request
 
-url = 'http://www.baidu.com'
-proxy_handler = ProxyHandler({
-    'http':'http://110.6.143.140:6666',
-    'http':'https://110.6.143.140:6666'
-})
-
-opener = build_opener(proxy_handler)
-
-try:
-    response = opener.open(url)
-    print(response.read().decode('utf-8'))
-except URLError as e:
-    print(e.reason)
+cookie = http.cookiejar.CookieJar()
+handler = urllib.request.HTTPCookieProcessor(cookie)
+opener = urllib.request.build_opener(handler)
+response = opener.open('http://www.baidu.com')
+for item in cookie:
+    print(item.name+"="+item.value)
