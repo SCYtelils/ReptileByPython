@@ -1,10 +1,5 @@
 import urllib.request
-import urllib.parse
-import socket
-import urllib.error
 
-try:
-    response = urllib.request.urlopen('http://httpbin.org/get',timeout=0.1)
-except urllib.error.URLError as e:
-    if isinstance(e.reason,socket.timeout):
-        print('TIME OUT')
+request = urllib.request.Request('https://python.org')
+response = urllib.request.urlopen(request)
+print(response.read().decode('utf-8'))
