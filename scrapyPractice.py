@@ -1,12 +1,18 @@
-from urllib import request,parse
+from urllib.request import HTTPPasswordMgrWithDefaultRealm,HTTPBasicAuthHandler,build_opener
+from urllib.error import URLError
 
-url = 'http://httpbin.org/post'
-# headers = {'User-Agent':'Mozilla/4.0 (compatible; MSIE 5.5; Windows NT)',
-#         'Host': 'httpbin.org'
-# }
-dict = {'name':'Germey'}
-data = bytes(parse.urlencode(dict),encoding='utf8')
-req = request.Request(url=url,data=data,method = 'POST')
-req.add_header('User-Agent','Mozilla/4.0 (compatible;MSIE 5.5; Windows NT)')
-response = request.urlopen(req)
-print(response.read().decode('utf-8'))
+username = '201803160039'
+password = 'Wangkailin2535'
+url = 'http://jwxt.qlu.edu.cn/jsxsd/framework/xsMain.jsp'
+
+p = HTTPPasswordMgrWithDefaultRealm()
+p.add_password(None,url,username,password)
+auth_handler = HTTPBasicAuthHandler(p)
+opener = build_opener(auth_handler)
+
+try:
+    result = opener.open(url)
+    html = result.read().decode('utf-8')
+    print(html)
+except URLError as e:
+    print(e.reason)
