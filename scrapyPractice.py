@@ -1,18 +1,16 @@
-from urllib.request import HTTPPasswordMgrWithDefaultRealm,HTTPBasicAuthHandler,build_opener
-from urllib.error import URLError
+from urllib.request import *
+from urllib.error import *
 
-username = '201803160039'
-password = 'Wangkailin2535'
-url = 'http://jwxt.qlu.edu.cn/jsxsd/framework/xsMain.jsp'
+url = 'http://www.baidu.com'
+proxy_handler = ProxyHandler({
+    'http':'http://110.6.143.140:6666',
+    'http':'https://110.6.143.140:6666'
+})
 
-p = HTTPPasswordMgrWithDefaultRealm()
-p.add_password(None,url,username,password)
-auth_handler = HTTPBasicAuthHandler(p)
-opener = build_opener(auth_handler)
+opener = build_opener(proxy_handler)
 
 try:
-    result = opener.open(url)
-    html = result.read().decode('utf-8')
-    print(html)
+    response = opener.open(url)
+    print(response.read().decode('utf-8'))
 except URLError as e:
     print(e.reason)
