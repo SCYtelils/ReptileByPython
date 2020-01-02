@@ -1,9 +1,4 @@
-import http.cookiejar,urllib.request
+from urllib.parse import urlparse
 
-filename = 'cookies.txt'
-cookie = http.cookiejar.LWPCookieJar(filename)
-handler = urllib.request.HTTPCookieProcessor(cookie)
-opener = urllib.request.build_opener(handler)
-response = opener.open('http://www.baidu.com')
-cookie.save(ignore_discard=True,ignore_expires=True)
-
+result = urlparse('http://www.baidu.com/index.html;user?id=5#comment')
+print(type(result),result)
