@@ -1,9 +1,7 @@
-from urllib.parse import urlencode
+from urllib.robotparser import RobotFileParser
 
-params = {
-    'name' : 'germey',
-    'age' : 22
-}
-base_url = "http://www.baidu.com?"
-url = base_url + urlencode(params)
-print(url)
+rp = RobotFileParser()
+rp.set_url('http://www.jianshu.com/robot.txt')
+rp.read()
+print(rp.can_fetch('*','http://www.jianshu.com/p/b67554025d7d'))
+print(rp.can_fetch('*',"http://www.jianshu.com/serch?q=python&page=1&type=collections"))
